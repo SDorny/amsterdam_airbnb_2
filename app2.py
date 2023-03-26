@@ -1,6 +1,5 @@
 import pandas as pd
 import streamlit as st
-import plotly.express as px
 from pandas.api.types import (
     is_categorical_dtype,
     is_datetime64_any_dtype,
@@ -9,13 +8,6 @@ from pandas.api.types import (
 )
 
 st.title("Filter your Airbnb Listings dataframe!")
-
-st.write(
-    """This app is based on this blog [here](https://blog.streamlit.io/auto-generate-a-dataframe-filtering-ui-in-streamlit-with-filter_dataframe/). 
-    Can you think of ways to extend it with visuals?
-    """
-)
-
 
 def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -91,25 +83,7 @@ def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
-        
-fig = px.scatter_mapbox(
-    df,
-    lat="Latitude",
-    lon="Longitude",
-    color="Location",
-    color_discrete_sequence=["red", "blue"],
-    zoom=11,
-    height=500,
-    width=800,
-    hover_name="Price",
-    hover_data=["Location"],
-    labels={"color": "Locations"},
-)
-fig.update_geos(center=dict(lat=df.iloc[0][2], lon=df.iloc[0][3]))
-fig.update_layout(mapbox_style="stamen-terrain")
-st.plotly_chart(fig, use_container_width=True)
-
-
+     
 df = pd.read_csv(
     "WK2_Airbnb_Amsterdam_listings_proj_solution.csv", index_col=0
 )
