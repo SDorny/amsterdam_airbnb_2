@@ -89,7 +89,22 @@ def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
                     df = df[df[column].str.contains(user_text_input)]
 
     return df
-
+    
+fig = px.scatter_mapbox(
+    df,
+    lat="Latitude",
+    lon="Longitude",
+    color="Location",
+    color_discrete_sequence=["red", "blue"],
+    zoom=11,
+    height=500,
+    width=800,
+    hover_name="Price",
+    hover_data=["Location"],
+    labels={"color": "Locations"},
+)
+fig.update_geos(center=dict(lat=df.iloc[0][2], lon=df.iloc[0][3]))
+fig.update_layout(mapbox_style="stamen-terrain")
 
 df = pd.read_csv(
     "WK2_Airbnb_Amsterdam_listings_proj_solution.csv", index_col=0
