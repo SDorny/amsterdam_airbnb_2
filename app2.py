@@ -1,6 +1,5 @@
 import pandas as pd
-import streamlit as st
-import plotly as px
+import streamlit as stz
 from pandas.api.types import (
     is_categorical_dtype,
     is_datetime64_any_dtype,
@@ -9,6 +8,7 @@ from pandas.api.types import (
 )
 
 st.title("Filter your Airbnb Listings dataframe!")
+st.markdown("Use the checkbox to add filters to the data!")
 
 def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -83,26 +83,6 @@ def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
                     df = df[df[column].str.contains(user_text_input)]
 
     return df
-
-# Create the plotly express figure
-fig = px.scatter_mapbox(
-    df,
-    lat="Latitude",
-    lon="Longitude",
-   # color="Location",
-  #  color_discrete_sequence=["red", "blue"],
-    zoom=11,
-    height=500,
-    width=800,
-    hover_name="price_in_dollar",
-    hover_data=["review_scores_rating", "has_availability", "accommodates"],
-   # labels={"color": "Locations"},
-)
-fig.update_geos(center=dict(lat=df.iloc[0][2], lon=df.iloc[0][3]))
-fig.update_layout(mapbox_style="stamen-terrain")
-
-# Show the figure
-st.plotly_chart(fig, use_container_width=True)
 
      
 df = pd.read_csv(
