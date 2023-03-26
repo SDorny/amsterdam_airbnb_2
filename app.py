@@ -106,6 +106,7 @@ fig = px.scatter_mapbox(
 )
 fig.update_geos(center=dict(lat=df.iloc[0][2], lon=df.iloc[0][3]))
 fig.update_layout(mapbox_style="stamen-terrain")
+st.plotly_chart(fig, use_container_width=True)
 
 df = pd.read_csv(
     "WK2_Airbnb_Amsterdam_listings_proj_solution.csv", index_col=0
